@@ -28,6 +28,26 @@ class TestCases(unittest.TestCase):
         expected = round((151+147+163+166+155),2)/5
         self.assertEqual(result,expected)
 
+    def test_percent_change_bawsca_total_use(self):
+        changes = functions.percent_change(waterlist, "BAWSCA Total Use")
+        first_pair = None
+        last_pair = None
+        for c in changes:
+            if first_pair is None or c[0] < first_pair[0]:
+                first_pair = c
+            if last_pair is None or c[0] > last_pair[0]:
+                last_pair = c
+        self.assertEqual(first_pair[0], 2015)
+        self.assertEqual(first_pair[1], 2016)
+        self.assertAlmostEqual(first_pair[2], -11.18, places=2)
+        self.assertEqual(last_pair[0], 2023)
+        self.assertEqual(last_pair[1], 2024)
+        self.assertAlmostEqual(last_pair[2], 4.6, places=1)
+
+    def test_compare_water_use_bawsca_total_use(self):
+        pct = functions.compare_water_use(waterlist, "BAWSCA Total Use")
+        self.assertAlmostEqual(pct, 2.88, places=2)
+
 
 if __name__ == '__main__':
     unittest.main()
