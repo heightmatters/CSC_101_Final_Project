@@ -23,20 +23,31 @@ def match_category(record,category):
         case 'EBMUD Gross Water Production':
             return record.ebmud
 
-#Purpose: to create a function that calculates the year to year percent change for a given category and returns a list of from_year, to_year, & percent_change
+#Purpose: to create a function that calculates the year to year percent change for a given category and returns a list of
+#from_year, to_year, & percent_change
 def percent_change(waterlist:list[data.WaterRecord],category: str) -> list[tuple[int,int,float]]:
+    #helper function to get the year of each WaterRecord object
     def get_year(record: data.WaterRecord) -> int:
         return record.year
+    #sorts list of objects by the year
     ordered = sorted(waterlist, key=get_year)
     changes = []
     for i in range(len(ordered) - 1):
+        #comparing year to year
         prev = ordered[i]
         curr = ordered[i + 1]
+        #using previous helper function to target a specific attribute of the object
         prev_val = match_category(prev, category)
         curr_val = match_category(curr, category)
+        #checking for divide by zero error
         if prev_val == 0:
             continue
+        #finding the precent change and then appending it as a tuple which holds the two years compared and the
+        #percent change.
         change = ((curr_val - prev_val) / prev_val) * 100
+        #biggest difference between a tuple and any other kind of data storage is the fact that they are immutable
+        #This makes it easier to store data that will never be changed. Along with this, it can store multiple different
+        #data types which is useful for our purposes.
         changes.append((prev.year, curr.year, round(change, 2)))
     return changes
 
@@ -48,5 +59,8 @@ def compare_water_use(waterlist:list[data.WaterRecord],category: str) -> float |
         return None
     pct=((avg_drought-avg_nondrought)/avg_nondrought)*100
     return round(pct,2)
+
+
+
 
 
