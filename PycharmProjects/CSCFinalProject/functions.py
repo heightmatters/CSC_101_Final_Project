@@ -23,7 +23,8 @@ def match_category(record,category):
         case 'EBMUD Gross Water Production':
             return record.ebmud
 
-#Purpose: to create a function that calculates the year to year percent change for a given category and returns a list of from_year, to_year, & percent_change
+#Purpose: to create a function that calculates the year to year percent change for a given category and returns a list of
+#from_year, to_year, & percent_change
 def percent_change(waterlist:list[data.WaterRecord],category: str) -> list[tuple[int,int,float]]:
     #helper function to get the year of each WaterRecord object
     def get_year(record: data.WaterRecord) -> int:
