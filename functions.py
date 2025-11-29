@@ -60,6 +60,32 @@ def compare_water_use(waterlist:list[data.WaterRecord],category: str) -> float |
     pct=((avg_drought-avg_nondrought)/avg_nondrought)*100
     return round(pct,2)
 
+#main for sample output
+def main():
+
+    waterlist = [
+        data.WaterRecord(2024, 123.63, 184.77, 151, False),
+        data.WaterRecord(2023, 117.91, 176.64, 147, False),
+        data.WaterRecord(2022, 128.11, 193.38, 156, True),
+        data.WaterRecord(2021, 134.42, 205.38, 169, True),
+        data.WaterRecord(2020, 132.22, 197.44, 167, True),
+        data.WaterRecord(2019, 126.00, 195.90, 163, False),
+        data.WaterRecord(2018, 128.10, 200.30, 166, False),
+        data.WaterRecord(2017, 116.39, 184.78, 155, False),
+        data.WaterRecord(2016, 113.20, 175.60, 145, True),
+        data.WaterRecord(2015, 126.50, 197.70, 156, True)
+    ]
+
+    category = "BAWSCA SF RWS Purchases"
+
+    print("\n=== RESULTS for", category, "===\n")
+    print("Average purchases during drought:", water_use_average(waterlist, category, True))
+    print("Average purchases during non-drought:", water_use_average(waterlist, category, False))
+    print("Percent change from year to year:", percent_change(waterlist, category))
+    print("Percent difference of purchases between drought and non-drought years:", compare_water_use(waterlist, category))
+
+if __name__ == "__main__":
+    main()
 
 
 
